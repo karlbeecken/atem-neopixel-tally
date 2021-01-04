@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/node": "^14.14.19",
+    "atem-connection": "^2.1.0"
+  }
+}
