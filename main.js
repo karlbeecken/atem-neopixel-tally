@@ -80,24 +80,23 @@ var Main = /** @class */ (function () {
         var new_program = this.switcher.listVisibleInputs("program", 0);
         var skip = true;
         console.log("PREVIEW: " + new_preview);
+        console.log("PROGRAM: " + new_program);
         if (new_preview.includes(tallyNumber)) {
             console.log("WE ARE PREVIEW");
             this.led.green();
             skip = false;
         }
-        this.preview = new_preview;
-        console.log("PROGRAM: " + new_program);
-        if (new_program.includes(tallyNumber)) {
+        else if (new_program.includes(tallyNumber)) {
             console.log("WE ARE PROGRAM");
             this.led.red();
             skip = false;
         }
-        this.program = new_program;
-        if (skip) {
+        else
             this.led.off();
-        }
+        this.preview = new_preview;
+        this.program = new_program;
         this.timeout = true;
-        setTimeout(function () { return (_this.timeout = false); }, 10);
+        setTimeout(function () { return (_this.timeout = false); }, 100);
     };
     Main.prototype.connect = function () {
         console.log("Connecting to " + this.ip + "...");
