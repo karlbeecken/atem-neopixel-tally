@@ -85,7 +85,6 @@ class Main {
   preview: any;
   program: any;
   led: Led;
-  timeout: boolean;
 
   constructor(ip: string) {
     this.ip = ip;

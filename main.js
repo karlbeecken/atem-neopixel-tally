@@ -1,5 +1,5 @@
 "use strict";
-exports.__esModule = true;
+Object.defineProperty(exports, "__esModule", { value: true });
 var atem_connection_1 = require("atem-connection");
 var ws281x = require("rpi-ws281x");
 var tallyNumber = 1;
@@ -10,7 +10,7 @@ var Led = /** @class */ (function () {
             dma: 10,
             brightness: 42,
             gpio: 18,
-            type: "grb"
+            type: "grb",
         };
         // Configure ws281x
         ws281x.configure(this.config);
