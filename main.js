@@ -8,23 +8,10 @@ var Led = /** @class */ (function () {
         this.config = {
             leds: 32,
             dma: 10,
-            brightness: 127,
+            brightness: 42,
             gpio: 18,
             type: "grb"
         };
-        // Number of leds in my strip
-        this.config.leds = 169;
-        // Use DMA 10 (default 10)
-        this.config.dma = 10;
-        // Set full brightness, a value from 0 to 255 (default 255)
-        this.config.brightness = 255;
-        // Set the GPIO number to communicate with the Neopixel strip (default 18)
-        this.config.gpio = 18;
-        // The RGB sequence may vary on some strips. Valid values
-        // are "rgb", "rbg", "grb", "gbr", "bgr", "brg".
-        // Default is "rgb".
-        // RGBW strips are not currently supported.
-        this.config.type = "grb";
         // Configure ws281x
         ws281x.configure(this.config);
     }
@@ -33,7 +20,7 @@ var Led = /** @class */ (function () {
         // This must be an instance of Uint32Array.
         var pixels = new Uint32Array(this.config.leds);
         // Create a fill color with red/green/blue.
-        var red = 255, green = 0, blue = 0;
+        var red = 0, green = 255, blue = 0;
         var color = (red << 16) | (green << 8) | blue;
         for (var i = 0; i < this.config.leds; i++)
             pixels[i] = color;
@@ -45,7 +32,7 @@ var Led = /** @class */ (function () {
         // This must be an instance of Uint32Array.
         var pixels = new Uint32Array(this.config.leds);
         // Create a fill color with red/green/blue.
-        var red = 0, green = 255, blue = 0;
+        var red = 255, green = 0, blue = 0;
         var color = (red << 16) | (green << 8) | blue;
         for (var i = 0; i < this.config.leds; i++)
             pixels[i] = color;
