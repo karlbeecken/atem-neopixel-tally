@@ -1,6 +1,7 @@
 {
   "dependencies": {
-    "@types/node": "^14.14.19",
-    "atem-connection": "^2.1.0"
+    "@types/node": "^14.14.22",
+    "atem-connection": "^2.1.0",
+    "rpi-ws281x": "^1.0.35"
   }
 }
