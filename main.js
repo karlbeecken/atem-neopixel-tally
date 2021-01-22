@@ -72,6 +72,9 @@ var Main = /** @class */ (function () {
         });
     }
     Main.prototype.parseNewState = function () {
+        var _this = this;
+        if (this.timeout)
+            return;
         // checking out current preview and program information
         var new_preview = this.switcher.listVisibleInputs("preview", 0);
         var new_program = this.switcher.listVisibleInputs("program", 0);
@@ -93,6 +96,8 @@ var Main = /** @class */ (function () {
         if (skip) {
             this.led.off();
         }
+        this.timeout = true;
+        setTimeout(function () { return (_this.timeout = false); }, 10);
     };
     Main.prototype.connect = function () {
         console.log("Connecting to " + this.ip + "...");

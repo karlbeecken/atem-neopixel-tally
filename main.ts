@@ -80,6 +80,7 @@ class Main {
   preview: any;
   program: any;
   led: Led;
+  timeout: boolean;
 
   constructor(ip: string) {
     this.ip = ip;
@@ -103,6 +104,7 @@ class Main {
   }
 
   parseNewState() {
+    if (this.timeout) return;
     // checking out current preview and program information
     let new_preview = this.switcher.listVisibleInputs("preview", 0);
     let new_program = this.switcher.listVisibleInputs("program", 0);
@@ -127,6 +129,9 @@ class Main {
     if (skip) {
       this.led.off();
     }
+
+    this.timeout = true;
+    setTimeout(() => (this.timeout = false), 10);
   }
 
   connect() {
