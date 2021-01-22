@@ -15,7 +15,7 @@ class Led {
     this.config = {
       leds: 32,
       dma: 10,
-      brightness: 127,
+      brightness: 65,
       gpio: 18,
       type: "grb",
     };
