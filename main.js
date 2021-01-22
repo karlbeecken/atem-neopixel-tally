@@ -81,14 +81,14 @@ var Main = /** @class */ (function () {
         var skip = true;
         console.log("PREVIEW: " + new_preview);
         console.log("PROGRAM: " + new_program);
-        if (new_preview.includes(tallyNumber)) {
-            console.log("WE ARE PREVIEW");
-            this.led.green();
-            skip = false;
-        }
-        else if (new_program.includes(tallyNumber)) {
+        if (new_program.includes(tallyNumber)) {
             console.log("WE ARE PROGRAM");
             this.led.red();
+            skip = false;
+        }
+        else if (new_preview.includes(tallyNumber)) {
+            console.log("WE ARE PREVIEW");
+            this.led.green();
             skip = false;
         }
         else
@@ -96,7 +96,9 @@ var Main = /** @class */ (function () {
         this.preview = new_preview;
         this.program = new_program;
         this.timeout = true;
-        setTimeout(function () { return (_this.timeout = false); }, 100);
+        setTimeout(function () {
+            _this.timeout = false;
+        }, 100);
     };
     Main.prototype.connect = function () {
         console.log("Connecting to " + this.ip + "...");

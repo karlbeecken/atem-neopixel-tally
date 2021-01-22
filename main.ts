@@ -113,13 +113,13 @@ class Main {
     console.log(`PREVIEW: ${new_preview}`);
     console.log(`PROGRAM: ${new_program}`);
 
-    if (new_preview.includes(tallyNumber)) {
-      console.log("WE ARE PREVIEW");
-      this.led.green();
-      skip = false;
-    } else if (new_program.includes(tallyNumber)) {
+    if (new_program.includes(tallyNumber)) {
       console.log("WE ARE PROGRAM");
       this.led.red();
+      skip = false;
+    } else if (new_preview.includes(tallyNumber)) {
+      console.log("WE ARE PREVIEW");
+      this.led.green();
       skip = false;
     } else this.led.off();
 
@@ -127,7 +127,9 @@ class Main {
     this.program = new_program;
 
     this.timeout = true;
-    setTimeout(() => (this.timeout = false), 100);
+    setTimeout(() => {
+      this.timeout = false;
+    }, 100);
   }
 
   connect() {
