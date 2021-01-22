@@ -78,6 +78,10 @@ var Main = /** @class */ (function () {
         // checking out current preview and program information
         var new_preview = this.switcher.listVisibleInputs("preview", 0);
         var new_program = this.switcher.listVisibleInputs("program", 0);
+        if (new_program === this.program)
+            return;
+        if (new_preview === this.preview)
+            return;
         console.log("PREVIEW: " + new_preview);
         console.log("PROGRAM: " + new_program);
         if (new_program.includes(tallyNumber)) {
@@ -92,7 +96,6 @@ var Main = /** @class */ (function () {
             this.led.off();
         this.preview = new_preview;
         this.program = new_program;
-        this.led.sleep(100);
     };
     Main.prototype.connect = function () {
         console.log("Connecting to " + this.ip + "...");

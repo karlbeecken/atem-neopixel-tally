@@ -113,6 +113,9 @@ class Main {
     let new_preview = this.switcher.listVisibleInputs("preview", 0);
     let new_program = this.switcher.listVisibleInputs("program", 0);
 
+    if (new_program === this.program) return;
+    if (new_preview === this.preview) return;
+
     console.log(`PREVIEW: ${new_preview}`);
     console.log(`PROGRAM: ${new_program}`);
 
@@ -126,8 +129,6 @@ class Main {
 
     this.preview = new_preview;
     this.program = new_program;
-
-    this.led.sleep(100);
   }
 
   connect() {
