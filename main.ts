@@ -97,7 +97,7 @@ class Main {
       //  this.parseNewState();
       //});
 
-      setInterval(() => this.parseNewState(), 50);
+      setInterval(() => this.parseNewState(), 100);
     });
 
     this.switcher.on("disconnected", () => {

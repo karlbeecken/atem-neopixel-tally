@@ -65,7 +65,7 @@ var Main = /** @class */ (function () {
             //this.switcher.on("stateChanged", (state: any) => {
             //  this.parseNewState();
             //});
-            setInterval(function () { return _this.parseNewState(); }, 50);
+            setInterval(function () { return _this.parseNewState(); }, 100);
         });
         this.switcher.on("disconnected", function () {
             console.log("Disconnected from " + _this.ip + ".");
