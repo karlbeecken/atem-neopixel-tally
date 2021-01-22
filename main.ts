@@ -1,4 +1,3 @@
-import { throws } from "assert";
 import { Atem as AtemSwitcher } from "atem-connection";
 const ws281x = require("rpi-ws281x");
 
