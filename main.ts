@@ -90,10 +90,10 @@ class Main {
     this.switcher.on("connected", () => {
       console.log(`Connected to ${this.ip}.`);
 
-      this.parseNewState();
+      this.parseNewState(false);
 
       this.switcher.on("stateChanged", (state: any) => {
-        this.parseNewState();
+        this.parseNewState(false);
       });
     });
 
@@ -103,12 +103,11 @@ class Main {
     });
   }
 
-  parseNewState() {
+  parseNewState(skip: boolean) {
     if (this.timeout) return;
     // checking out current preview and program information
     let new_preview = this.switcher.listVisibleInputs("preview", 0);
     let new_program = this.switcher.listVisibleInputs("program", 0);
-    let skip = true;
 
     console.log(`PREVIEW: ${new_preview}`);
     console.log(`PROGRAM: ${new_program}`);
@@ -116,20 +115,21 @@ class Main {
     if (new_program.includes(tallyNumber)) {
       console.log("WE ARE PROGRAM");
       this.led.red();
-      skip = false;
     } else if (new_preview.includes(tallyNumber)) {
       console.log("WE ARE PREVIEW");
       this.led.green();
-      skip = false;
     } else this.led.off();
 
     this.preview = new_preview;
     this.program = new_program;
 
     this.timeout = true;
-    setTimeout(() => {
-      this.timeout = false;
-    }, 100);
+    if (!skip) {
+      setTimeout(() => {
+        this.timeout = false;
+        this.parseNewState(true);
+      }, 100);
+    }
   }
 
   connect() {
