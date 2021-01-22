@@ -61,20 +61,18 @@ var Main = /** @class */ (function () {
         this.led = new Led();
         this.switcher.on("connected", function () {
             console.log("Connected to " + _this.ip + ".");
-            _this.parseNewState(false);
-            _this.switcher.on("stateChanged", function (state) {
-                _this.parseNewState(false);
-            });
+            _this.parseNewState();
+            //this.switcher.on("stateChanged", (state: any) => {
+            //  this.parseNewState();
+            //});
+            setInterval(function () { return _this.parseNewState(); }, 50);
         });
         this.switcher.on("disconnected", function () {
             console.log("Disconnected from " + _this.ip + ".");
             _this.connect();
         });
     }
-    Main.prototype.parseNewState = function (skip) {
-        var _this = this;
-        if (this.timeout)
-            return;
+    Main.prototype.parseNewState = function () {
         // checking out current preview and program information
         var new_preview = this.switcher.listVisibleInputs("preview", 0);
         var new_program = this.switcher.listVisibleInputs("program", 0);
@@ -92,13 +90,6 @@ var Main = /** @class */ (function () {
             this.led.off();
         this.preview = new_preview;
         this.program = new_program;
-        this.timeout = true;
-        if (!skip) {
-            setTimeout(function () {
-                _this.timeout = false;
-                _this.parseNewState(true);
-            }, 100);
-        }
     };
     Main.prototype.connect = function () {
         console.log("Connecting to " + this.ip + "...");

@@ -1,3 +1,4 @@
+import { throws } from "assert";
 import { Atem as AtemSwitcher } from "atem-connection";
 const ws281x = require("rpi-ws281x");
 
@@ -90,11 +91,13 @@ class Main {
     this.switcher.on("connected", () => {
       console.log(`Connected to ${this.ip}.`);
 
-      this.parseNewState(false);
+      this.parseNewState();
 
-      this.switcher.on("stateChanged", (state: any) => {
-        this.parseNewState(false);
-      });
+      //this.switcher.on("stateChanged", (state: any) => {
+      //  this.parseNewState();
+      //});
+
+      setInterval(() => this.parseNewState(), 50);
     });
 
     this.switcher.on("disconnected", () => {
@@ -103,8 +106,7 @@ class Main {
     });
   }
 
-  parseNewState(skip: boolean) {
-    if (this.timeout) return;
+  parseNewState() {
     // checking out current preview and program information
     let new_preview = this.switcher.listVisibleInputs("preview", 0);
     let new_program = this.switcher.listVisibleInputs("program", 0);
@@ -122,14 +124,6 @@ class Main {
 
     this.preview = new_preview;
     this.program = new_program;
-
-    this.timeout = true;
-    if (!skip) {
-      setTimeout(() => {
-        this.timeout = false;
-        this.parseNewState(true);
-      }, 100);
-    }
   }
 
   connect() {
