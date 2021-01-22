@@ -19,25 +19,6 @@ class Led {
       gpio: 18,
       type: "grb",
     };
-
-    // Number of leds in my strip
-    this.config.leds = 169;
-
-    // Use DMA 10 (default 10)
-    this.config.dma = 10;
-
-    // Set full brightness, a value from 0 to 255 (default 255)
-    this.config.brightness = 255;
-
-    // Set the GPIO number to communicate with the Neopixel strip (default 18)
-    this.config.gpio = 18;
-
-    // The RGB sequence may vary on some strips. Valid values
-    // are "rgb", "rbg", "grb", "gbr", "bgr", "brg".
-    // Default is "rgb".
-    // RGBW strips are not currently supported.
-    this.config.type = "grb";
-
     // Configure ws281x
     ws281x.configure(this.config);
   }
