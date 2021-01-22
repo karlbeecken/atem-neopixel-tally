@@ -51,6 +51,9 @@ var Led = /** @class */ (function () {
         // Render to strip
         ws281x.render(pixels);
     };
+    Led.prototype.sleep = function (time) {
+        ws281x.sleep(time);
+    };
     return Led;
 }());
 var Main = /** @class */ (function () {
@@ -62,10 +65,9 @@ var Main = /** @class */ (function () {
         this.switcher.on("connected", function () {
             console.log("Connected to " + _this.ip + ".");
             _this.parseNewState();
-            //this.switcher.on("stateChanged", (state: any) => {
-            //  this.parseNewState();
-            //});
-            setInterval(function () { return _this.parseNewState(); }, 100);
+            _this.switcher.on("stateChanged", function (state) {
+                _this.parseNewState();
+            });
         });
         this.switcher.on("disconnected", function () {
             console.log("Disconnected from " + _this.ip + ".");
@@ -90,6 +92,7 @@ var Main = /** @class */ (function () {
             this.led.off();
         this.preview = new_preview;
         this.program = new_program;
+        this.led.sleep(100);
     };
     Main.prototype.connect = function () {
         console.log("Connecting to " + this.ip + "...");

@@ -74,6 +74,10 @@ class Led {
     // Render to strip
     ws281x.render(pixels);
   }
+
+  sleep(time: number) {
+    ws281x.sleep(time);
+  }
 }
 class Main {
   switcher: AtemSwitcher;
@@ -93,11 +97,9 @@ class Main {
 
       this.parseNewState();
 
-      //this.switcher.on("stateChanged", (state: any) => {
-      //  this.parseNewState();
-      //});
-
-      setInterval(() => this.parseNewState(), 100);
+      this.switcher.on("stateChanged", (state: any) => {
+        this.parseNewState();
+      });
     });
 
     this.switcher.on("disconnected", () => {
@@ -124,6 +126,8 @@ class Main {
 
     this.preview = new_preview;
     this.program = new_program;
+
+    this.led.sleep(100);
   }
 
   connect() {
